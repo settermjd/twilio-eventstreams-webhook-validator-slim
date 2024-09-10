@@ -1,7 +1,7 @@
 {
     "name": "settermjd/twilio-eventstreams-webhook-validator-slim",
     "description": "Slim middleware for validating Twilio Event Streams Webhooks",
-    "type": "project",
+    "type": "library",
     "license": "BSD-3-Clause",
     "config": {
         "sort-packages": true
