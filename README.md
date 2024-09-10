@@ -1,5 +1,7 @@
 # Slim v4 Twilio Event Streams Webhook Validator Middleware
 
+![testing workflow](https://github.com/settermjd/twilio-eventstreams-webhook-validator-slim/actions/workflows/php.yml/badge.svg)
+
 This is a small piece of middleware for Slim v4 that validates a Twilio Event Streams webhook.
 If the webhook is valid, the next request is called. Otherwise, a 400 Bad Request is returned, along with a problem details response, formatted based on the request's accept header.
 
@@ -47,7 +49,7 @@ $app->run();
 
 Then, replace `<<THE APP'S PUBLIC URL>>"` with the public URI of the application, `<<THE WEBHOOK PATH>>` with he path of the route that handles the webhook request, and `<<YOUR TWILIO AUTH TOKEN>>` with your Twilio [Auth Token][twilio_auth_token_url].
  
-Note: The first two parameters to `EventStreamsWebhookValidatorMiddleware` ensure that the app's correct public URI is used as part of the webhook validation process.
+**Note:** The first two parameters to `EventStreamsWebhookValidatorMiddleware` ensure that the app's correct public URI is used as part of the webhook validation process.
 
 [twilio_auth_token_url]: https://help.twilio.com/articles/223136027-Auth-Tokens-and-How-to-Change-Them 
 [twilio_referral_url]: https://www.twilio.com/referral/QlBtVJ
