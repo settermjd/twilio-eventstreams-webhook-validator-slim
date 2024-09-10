@@ -7,6 +7,8 @@ namespace EventStreams;
 use Mezzio\ProblemDetails\ProblemDetailsResponseFactory;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Psr7\Factory\ResponseFactory;
 use Twilio\Security\RequestValidator;
 
@@ -23,7 +25,7 @@ use function ltrim;
  * @see https://akrabat.com/api-errors-are-first-class-citizens/
  * @psalm-api
  */
-class EventStreamsWebhookValidatorMiddleware
+class EventStreamsWebhookValidatorMiddleware implements MiddlewareInterface
 {
     public function __construct(private string $baseUrl, private string $requestPath, private readonly RequestValidator $validator)
     {
@@ -31,7 +33,7 @@ class EventStreamsWebhookValidatorMiddleware
         $this->requestPath = ltrim($this->requestPath, '/');
     }
 
-    public function __invoke(ServerRequestInterface $request, ResponseInterface $response, callable $next): ResponseInterface
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $requestBody = (string) $request->getBody();
         $requestURL = $this->baseUrl . "/$this->requestPath?" . http_build_query($request->getQueryParams());
@@ -41,7 +43,7 @@ class EventStreamsWebhookValidatorMiddleware
             $requestURL,
             $requestBody
         )) {
-            return $next($request, $response);
+            return $handler->handle($request);
         }
 
         return (new ProblemDetailsResponseFactory(new ResponseFactory()))

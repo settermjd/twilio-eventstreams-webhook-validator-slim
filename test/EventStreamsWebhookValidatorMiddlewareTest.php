@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Slim\Psr7\Response;
 use Twilio\Security\RequestValidator;
 
@@ -63,10 +64,14 @@ EOF;
             ->willReturn(true);
 
         $middleware = new EventStreamsWebhookValidatorMiddleware($baseURL, $requestPath, $validator);
-        $response = $middleware(
+        $handler = $this->createMock(RequestHandlerInterface::class);
+        $handler
+            ->expects($this->once())
+            ->method('handle')
+            ->willReturn((new Response())->withStatus(200));
+        $response = $middleware->process(
             $request,
-            $this->createMock(ResponseInterface::class),
-            fn () => new Response()
+            $handler,
         );
 
         $this->assertInstanceOf(ResponseInterface::class, $response);
@@ -94,10 +99,9 @@ EOF;
             ->willReturn(false);
 
         $middleware = new EventStreamsWebhookValidatorMiddleware('https://example.org', 'webhook', $validator);
-        $response = $middleware(
+        $response = $middleware->process(
             $request,
-            new Response(),
-            fn () => $this->createMock(ResponseInterface::class)
+            $this->createMock(RequestHandlerInterface::class),
         );
 
         $expectedResponseBody = <<<EOF
@@ -144,10 +148,9 @@ EOF;
             ->willReturn(false);
 
         $middleware = new EventStreamsWebhookValidatorMiddleware('https://example.org', 'webhook', $validator);
-        $response = $middleware(
+        $response = $middleware->process(
             $request,
-            new Response(),
-            fn () => $this->createMock(ResponseInterface::class)
+            $this->createMock(RequestHandlerInterface::class),
         );
 
         $expectedResponseBody = <<<EOF
