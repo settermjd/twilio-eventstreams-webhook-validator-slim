@@ -38,7 +38,7 @@ $app->get('/', function ($request, $response, $args) {
 $app->run();
 ```
 
-In the example above the EventStreamsWebhookValidatorMiddleware is initialised with two constructor parameters: the public URI of the application and the path of the route that handles the webhook request.
+In the example above the `EventStreamsWebhookValidatorMiddleware` is initialised with two constructor parameters: the public URI of the application and the path of the route that handles the webhook request.
 This is to ensure that the correct URI is used as part of the webhook validation process.
 
 [slim_middleware_docs_url]: https://www.slimframework.com/docs/v3/concepts/middleware.html
