@@ -68,6 +68,22 @@ $app->run();
 
 Then, replace `<<THE APP'S PUBLIC URL>>"` with the public URI of the application, `<<THE WEBHOOK PATH>>` with he path of the route that handles the webhook request, and `<<YOUR TWILIO AUTH TOKEN>>` with your Twilio Auth Token.
 
+## Contributing
+
+If you want to contribute to the project, whether you have found issues with it or just want to improve it, here's how:
+
+- [Issues][issues_url]: ask questions and submit your feature requests, bug reports, etc
+- [Pull requests][pull_requests_url]: send your improvements
+
+## Did You Find The Project Useful?
+
+If the project was useful and you want to say thank you and/or support its active development, here's how:
+
+- Add a GitHub Star to the project
+- Write an interesting article about the project wherever you blog
+
+[issues_url]: https://github.com/settermjd/twilio-eventstreams-webhook-validator-slim/issues
+[pull_requests_url]: https://github.com/settermjd/twilio-eventstreams-webhook-validator-slim/pulls
 [accept_header_url]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Accept
 [problem_details_rfc_url]: https://datatracker.ietf.org/doc/html/rfc7807
 [http_400_bad_request_url]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
